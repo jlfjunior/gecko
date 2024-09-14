@@ -6,6 +6,7 @@ from models.dimCripto import DimCripto
 from services.database import get_session, seed_database
 from services.geckoService import GeckoService
 import datetime as dt
+from sqlalchemy.orm import joinedload
 
 app = FastAPI()
 
@@ -52,6 +53,24 @@ def extract():
 def get_fato_cripto():
     fatos = session.query(FatoCripto).order_by(FatoCripto.idCripto).all()
     return fatos
+
+@app.get("/criptos")
+def get_criptos():
+    criptos = session.query(DimCripto).options(joinedload(DimCripto.categoria)).all()
+    response = []
+    
+    for cripto in criptos:
+        response.append({
+            "id": cripto.id,
+            "nome": cripto.nome,
+            "simbolo": cripto.simbolo,
+            "rank": cripto.rank,
+            "categoria": {
+                "id": cripto.categoria.id,
+                "descricao": cripto.categoria.descricao
+            }})
+
+        return response
 
 if __name__ == "__main__":
     uvicorn.run(app, port=8000)
