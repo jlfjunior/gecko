@@ -8,7 +8,7 @@ class DimCripto(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     nome = Column(String(50), nullable=False)
     simbolo = Column(String(10), nullable=False)
-    rank = Column(String(10), nullable=False)
+    rank = Column(Integer, nullable=False)
     idCategoria = Column(Integer, ForeignKey('categoria_mercado.id'), nullable=False)
     
     categoria = relationship("CategoriaMercado", back_populates="criptos")

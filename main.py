@@ -16,7 +16,7 @@ session = get_session()
 def root():
     return {"Service available"}
 
-@app.get("/extract")
+@app.post("/extract")
 def extract():
     elements = GeckoService.extract()
     processedData = GeckoService.processDate(elements)
