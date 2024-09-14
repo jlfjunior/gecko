@@ -6,9 +6,9 @@ from sqlalchemy.orm import relationship
 class DimCripto(Base):
     __tablename__ = 'dim_criptos' 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    nome = Column(String, nullable=False)
-    simbolo = Column(String, nullable=False)
-    rank = Column(String, nullable=False)
+    nome = Column(String(50), nullable=False)
+    simbolo = Column(String(10), nullable=False)
+    rank = Column(String(10), nullable=False)
     idCategoria = Column(Integer, ForeignKey('categoria_mercado.id'), nullable=False)
     
     categoria = relationship("CategoriaMercado", back_populates="criptos")

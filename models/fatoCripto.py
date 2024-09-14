@@ -7,7 +7,7 @@ class FatoCripto(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     data = Column(DateTime, nullable=False)
     preco_atual = Column(Numeric, nullable=False)
-    categoria_preco = Column(String, nullable=False)
+    categoria_preco = Column(String(10), nullable=False)
 
     idCripto = Column(Integer, ForeignKey('dim_criptos.id'), nullable=False)
     idCategoria = Column(Integer, ForeignKey('categoria_mercado.id'), nullable=False)

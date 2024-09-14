@@ -3,9 +3,12 @@ from sqlalchemy.orm import sessionmaker
 from models.mapping import Base
 from models.categoriaMercado import CategoriaMercado
 
-DATABASE_URL = 'sqlite:///gecko.db'
+USER='root'
+PASSWORD='gecko!23'
+PORT=3306
+DATABASE_NAME='Gecko'
+DATABASE_URL = f'mysql+pymysql://{USER}:{PASSWORD}@localhost:{PORT}/{DATABASE_NAME}'
 
-# Configura a conexão com o banco de dados
 engine = create_engine(DATABASE_URL, echo=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

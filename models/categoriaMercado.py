@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship
 class CategoriaMercado(Base):
     __tablename__ = 'categoria_mercado' 
     id = Column(Integer, primary_key=True)
-    descricao = Column(String, nullable=False)
+    descricao = Column(String(10), nullable=False)
     
     criptos = relationship("DimCripto", back_populates="categoria")
     fato_cripto = relationship("FatoCripto", back_populates="categoria")
