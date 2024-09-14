@@ -3,33 +3,14 @@ from fastapi import FastAPI
 from models.fatoCripto import FatoCripto
 from models.categoriaMercado import CategoriaMercado
 from models.dimCripto import DimCripto
+from services.database import get_session, seed_database
 from services.geckoService import GeckoService
-import sqlalchemy
-from sqlalchemy.orm import sessionmaker
-from models.mapping import Base
 import datetime as dt
 
 app = FastAPI()
-engine = sqlalchemy.create_engine('sqlite:///gecko.db', echo=True)
-Session = sessionmaker(bind=engine)
-session = Session()
 
-Base.metadata.create_all(engine)
-
-def seed():
-    exists = session.query(CategoriaMercado).count()
-
-    if exists == 0:
-        c1 = CategoriaMercado(1, "Low")
-        c2 = CategoriaMercado(2, "Medium")  
-        c3 = CategoriaMercado(3, "High")
-        
-        session.add_all([c1, c2, c3])
-        session.commit()
-    else:
-        print("O banco de dados já está populado. Nenhuma ação necessária.")
-
-seed()
+seed_database()
+session = get_session()
 
 @app.get("/status")
 def root():
