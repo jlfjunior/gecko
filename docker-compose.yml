@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    container_name: my-mysql
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_DATABASE=Gecko
+      - MYSQL_ROOT_PASSWORD=gecko!23
+      - MYSQL_USER=gecko
+      - MYSQL_PASSWORD=gecko!23
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql-volume:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+volumes:
+  mysql-volume:
+    driver: local
