@@ -2,6 +2,11 @@
 
 Este é um projeto FastAPI que se conecta a uma API externa para extrair dados de criptomoedas e armazená-los em um banco de dados MySQL. A API fornece endpoints para extrair e consultar dados sobre criptomoedas.
 
+### Diagrama de representação arquitetural
+![L1](docs/L1.png)
+
+### Diagrama de entidade e relacionais
+![ER](docs/ER.png)
 
 ## Estrutura do Projeto
 - main.py/: Arquivo de inicialização da aplicação FastAPI.
