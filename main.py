@@ -50,13 +50,36 @@ def extract():
     return "Extração concluida com sucesso."
 
 @app.get("/criptos/prices")
-def get_fato_cripto():
-    fatos = session.query(FatoCripto).order_by(FatoCripto.idCripto).all()
-    return fatos
+def get_fato_cripto(simbolo: str = None):
+    query = session.query(FatoCripto).join(DimCripto).order_by(FatoCripto.idCripto)
+
+    if simbolo:
+        query = query.filter(DimCripto.simbolo == simbolo)
+
+    fatos = query.all()
+
+    response = []
+    
+    for fato in fatos:
+        response.append({
+            "id": fato.id,
+            "idCripto": fato.idCripto,
+            "data": fato.data,
+            "preco_atual": fato.preco_atual,
+            "categoria_preco": fato.categoria_preco
+        })
+
+    return response
+
 
 @app.get("/criptos")
-def get_criptos():
-    criptos = session.query(DimCripto).options(joinedload(DimCripto.categoria)).all()
+def get_criptos(simbolo: str = None):
+    query = session.query(DimCripto).options(joinedload(DimCripto.categoria))
+
+    if simbolo:
+        query = query.filter(DimCripto.simbolo == simbolo)
+
+    criptos = query.all()
     response = []
     
     for cripto in criptos:
